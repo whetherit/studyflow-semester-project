@@ -1,0 +1,54 @@
+:root {
+  color-scheme: light;
+  --ink: #17221d;
+  --muted: #65726b;
+  --surface: #ffffff;
+  --surface-soft: #eef5f0;
+  --canvas: #f6f8f6;
+  --primary: #1f6b4f;
+  --primary-dark: #15513b;
+  --accent: #d9f26f;
+  --warning: #c96732;
+  --danger: #b33b3b;
+  --border: #dbe5df;
+  --shadow: 0 16px 40px rgba(23, 34, 29, 0.08);
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--canvas);
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 5%, rgba(217, 242, 111, 0.28), transparent 22rem),
+    var(--canvas);
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+label[for] {
+  cursor: pointer;
+}
+
+.app-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding-bottom: 64px;
+}
+
