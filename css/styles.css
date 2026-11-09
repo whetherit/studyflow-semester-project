@@ -368,3 +368,166 @@ textarea {
   color: var(--muted);
 }
 
+.dialog {
+  width: min(680px, calc(100% - 28px));
+  padding: 0;
+  border: 0;
+  border-radius: 22px;
+  box-shadow: 0 24px 70px rgba(23, 34, 29, 0.26);
+}
+
+.dialog::backdrop {
+  background: rgba(19, 31, 25, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.dialog--small {
+  width: min(430px, calc(100% - 28px));
+  padding: 26px;
+}
+
+.task-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 28px;
+}
+
+.dialog__heading,
+.dialog__actions {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dialog__heading h2 {
+  margin: 4px 0;
+  font: 700 30px / 1.2 Cambria, serif;
+}
+
+.dialog__actions {
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.field--wide {
+  grid-column: 1 / -1;
+}
+
+.field__error {
+  min-height: 18px;
+  color: var(--danger);
+  font-weight: 400;
+}
+
+.toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 10;
+  max-width: min(380px, calc(100% - 44px));
+  padding: 13px 17px;
+  color: #fff;
+  background: var(--ink);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: 180ms ease;
+}
+
+.toast--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(31, 107, 79, 0.35);
+  outline-offset: 2px;
+}
+
+@media (max-width: 800px) {
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace__heading {
+    display: block;
+  }
+
+  .data-actions {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .app-shell {
+    width: min(100% - 20px, 1120px);
+  }
+
+  .app-header .button {
+    padding-inline: 12px;
+  }
+
+  .hero {
+    padding: 44px 0 32px;
+  }
+
+  .stats {
+    gap: 8px;
+  }
+
+  .stat-card {
+    min-height: 112px;
+    padding: 16px;
+  }
+
+  .workspace {
+    padding: 18px;
+  }
+
+  .task-card {
+    grid-template-columns: auto 1fr;
+  }
+
+  .task-card__actions {
+    grid-column: 2;
+  }
+
+  .task-form {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .field,
+  .field--wide {
+    grid-column: 1;
+  }
+}
+
