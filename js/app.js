@@ -195,6 +195,26 @@ function handleSubmit(event) {
   showToast(editedId ? "Изменения сохранены" : "Задача добавлена");
 }
 
+function handleToggle(id) {
+  tasks = tasks.map((task) => task.id === id ? toggleTask(task) : task);
+  saveAndRender();
+  showToast("Состояние задачи изменено");
+}
+
+function openDeleteDialog(id) {
+  pendingDeleteId = id;
+  elements.confirmDialog.showModal();
+}
+
+elements.confirmDeleteButton.addEventListener("click", () => {
+  if (!pendingDeleteId) return;
+  tasks = tasks.filter((task) => task.id !== pendingDeleteId);
+  pendingDeleteId = null;
+  storage.save(tasks);
+  render();
+  showToast("Задача удалена");
+});
+
 elements.form.addEventListener("submit", handleSubmit);
 elements.addButton.addEventListener("click", () => openTaskDialog());
 elements.emptyAddButton.addEventListener("click", () => openTaskDialog());
