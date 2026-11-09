@@ -184,10 +184,15 @@ function handleSubmit(event) {
     return;
   }
 
-  tasks.push(createTask(input));
+  const editedId = elements.taskId.value;
+  if (editedId) {
+    tasks = tasks.map((task) => task.id === editedId ? updateTask(task, input) : task);
+  } else {
+    tasks.push(createTask(input));
+  }
   closeTaskDialog();
   saveAndRender();
-  showToast("Задача добавлена");
+  showToast(editedId ? "Изменения сохранены" : "Задача добавлена");
 }
 
 elements.form.addEventListener("submit", handleSubmit);
