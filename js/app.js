@@ -221,6 +221,11 @@ elements.emptyAddButton.addEventListener("click", () => openTaskDialog());
 elements.closeDialogButton.addEventListener("click", closeTaskDialog);
 elements.cancelDialogButton.addEventListener("click", closeTaskDialog);
 
+[elements.searchInput, elements.statusFilter, elements.priorityFilter].forEach((control) => {
+  control.addEventListener("input", render);
+  control.addEventListener("change", render);
+});
+
 function render() {
   const stats = getStats(tasks);
   elements.totalCount.textContent = stats.total;
