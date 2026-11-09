@@ -252,6 +252,21 @@ elements.exportButton.addEventListener("click", () => {
   showToast("Резервная копия сохранена");
 });
 
+elements.importInput.addEventListener("change", async () => {
+  const [file] = elements.importInput.files;
+  if (!file) return;
+
+  try {
+    tasks = parseBackup(await file.text());
+    saveAndRender();
+    showToast("Резервная копия загружена");
+  } catch (error) {
+    showToast(error instanceof SyntaxError ? "В файле ошибка JSON" : error.message);
+  } finally {
+    elements.importInput.value = "";
+  }
+});
+
 function render() {
   const stats = getStats(tasks);
   elements.totalCount.textContent = stats.total;
