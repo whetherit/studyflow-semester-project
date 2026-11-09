@@ -235,6 +235,23 @@ elements.demoButton.addEventListener("click", () => {
   showToast("Демонстрационные задачи загружены");
 });
 
+elements.exportButton.addEventListener("click", () => {
+  const backup = JSON.stringify({
+    app: "StudyFlow",
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    tasks
+  }, null, 2);
+  const blob = new Blob([backup], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `studyflow-${todayKey()}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+  showToast("Резервная копия сохранена");
+});
+
 function render() {
   const stats = getStats(tasks);
   elements.totalCount.textContent = stats.total;
