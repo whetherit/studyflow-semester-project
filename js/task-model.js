@@ -54,3 +54,40 @@ export function updateTask(task, input) {
 export function toggleTask(task) {
   return { ...task, done: !task.done };
 }
+
+export function isOverdue(task, today = todayKey()) {
+  return !task.done && task.deadline < today;
+}
+
+export function filterTasks(tasks, filters = {}, today = todayKey()) {
+  const query = filters.query?.trim().toLowerCase() ?? "";
+
+  return tasks.filter((task) => {
+    const matchesQuery =
+      !query ||
+      task.title.toLowerCase().includes(query) ||
+      task.subject.toLowerCase().includes(query);
+    const matchesPriority =
+      !filters.priority ||
+      filters.priority === "all" ||
+      task.priority === filters.priority;
+    const matchesStatus =
+      !filters.status ||
+      filters.status === "all" ||
+      (filters.status === "active" && !task.done) ||
+      (filters.status === "done" && task.done) ||
+      (filters.status === "overdue" && isOverdue(task, today));
+
+    return matchesQuery && matchesPriority && matchesStatus;
+  });
+}
+
+export function sortTasks(tasks) {
+  const priorityWeight = { high: 0, medium: 1, low: 2 };
+  return [...tasks].sort((left, right) => {
+    if (left.done !== right.done) return Number(left.done) - Number(right.done);
+    const byDate = left.deadline.localeCompare(right.deadline);
+    if (byDate !== 0) return byDate;
+    return priorityWeight[left.priority] - priorityWeight[right.priority];
+  });
+}
