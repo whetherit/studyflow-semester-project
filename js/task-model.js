@@ -91,3 +91,75 @@ export function sortTasks(tasks) {
     return priorityWeight[left.priority] - priorityWeight[right.priority];
   });
 }
+
+export function getStats(tasks, today = todayKey()) {
+  return {
+    total: tasks.length,
+    active: tasks.filter((task) => !task.done).length,
+    done: tasks.filter((task) => task.done).length,
+    overdue: tasks.filter((task) => isOverdue(task, today)).length
+  };
+}
+
+export function isTask(value) {
+  return Boolean(
+    value &&
+      typeof value.id === "string" &&
+      typeof value.title === "string" &&
+      typeof value.subject === "string" &&
+      /^\d{4}-\d{2}-\d{2}$/.test(value.deadline) &&
+      PRIORITIES.includes(value.priority) &&
+      typeof value.done === "boolean"
+  );
+}
+
+export function parseBackup(text) {
+  const value = JSON.parse(text);
+  const tasks = Array.isArray(value) ? value : value.tasks;
+  if (!Array.isArray(tasks) || !tasks.every(isTask)) {
+    throw new TypeError("Файл не является резервной копией StudyFlow");
+  }
+  return tasks;
+}
+
+export function makeDemoTasks(today = todayKey()) {
+  const date = new Date(`${today}T12:00:00`);
+  const shift = (days) => {
+    const copy = new Date(date);
+    copy.setDate(copy.getDate() + days);
+    return todayKey(copy);
+  };
+
+  return [
+    {
+      id: "demo-1",
+      title: "Подготовить презентацию проекта",
+      subject: "Введение в профессиональную деятельность",
+      deadline: shift(3),
+      priority: "high",
+      notes: "Добавить архитектуру, результат и выводы",
+      done: false,
+      createdAt: date.toISOString()
+    },
+    {
+      id: "demo-2",
+      title: "Повторить тему перед семинаром",
+      subject: "Математика",
+      deadline: shift(6),
+      priority: "medium",
+      notes: "",
+      done: false,
+      createdAt: date.toISOString()
+    },
+    {
+      id: "demo-3",
+      title: "Сдать лабораторную работу",
+      subject: "Информатика",
+      deadline: shift(-1),
+      priority: "high",
+      notes: "Проверить отчёт перед отправкой",
+      done: true,
+      createdAt: date.toISOString()
+    }
+  ];
+}
