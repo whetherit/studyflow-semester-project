@@ -44,6 +44,47 @@
             <span class="stat-card__label">Просрочено</span>
           </article>
         </section>
+
+        <section class="workspace" aria-labelledby="tasks-title">
+          <div class="workspace__heading">
+            <div>
+              <p class="eyebrow">Мои дела</p>
+              <h2 id="tasks-title">Учебные задачи</h2>
+            </div>
+            <div class="data-actions">
+              <button class="button button--quiet" id="demo-button" type="button">Пример</button>
+              <button class="button button--quiet" id="export-button" type="button">Экспорт</button>
+              <label class="button button--quiet" for="import-input">Импорт</label>
+              <input class="visually-hidden" id="import-input" type="file" accept="application/json,.json">
+            </div>
+          </div>
+
+          <div class="filters">
+            <label class="search">
+              <span class="visually-hidden">Поиск задач</span>
+              <span aria-hidden="true">⌕</span>
+              <input id="search-input" type="search" placeholder="Название или предмет">
+            </label>
+            <label>
+              <span class="visually-hidden">Состояние</span>
+              <select id="status-filter">
+                <option value="all">Все состояния</option>
+                <option value="active">В работе</option>
+                <option value="done">Выполнено</option>
+                <option value="overdue">Просрочено</option>
+              </select>
+            </label>
+            <label>
+              <span class="visually-hidden">Приоритет</span>
+              <select id="priority-filter">
+                <option value="all">Любой приоритет</option>
+                <option value="high">Высокий</option>
+                <option value="medium">Средний</option>
+                <option value="low">Низкий</option>
+              </select>
+            </label>
+          </div>
+        </section>
       </main>
     </div>
 
