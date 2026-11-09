@@ -4,5 +4,6 @@ Thumbs.db
 node_modules/
 coverage/
 output/playwright/
+.playwright-cli/
 *.log
 
