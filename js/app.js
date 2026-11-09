@@ -226,6 +226,15 @@ elements.cancelDialogButton.addEventListener("click", closeTaskDialog);
   control.addEventListener("change", render);
 });
 
+elements.demoButton.addEventListener("click", () => {
+  if (tasks.length > 0 && !window.confirm("Заменить текущие задачи демонстрационными?")) {
+    return;
+  }
+  tasks = makeDemoTasks();
+  saveAndRender();
+  showToast("Демонстрационные задачи загружены");
+});
+
 function render() {
   const stats = getStats(tasks);
   elements.totalCount.textContent = stats.total;
