@@ -96,6 +96,52 @@
       </main>
     </div>
 
+    <dialog class="dialog" id="task-dialog">
+      <form class="task-form" id="task-form" method="dialog" novalidate>
+        <div class="dialog__heading">
+          <div>
+            <p class="eyebrow">Карточка задания</p>
+            <h2 id="dialog-title">Новая задача</h2>
+          </div>
+          <button class="icon-button" id="close-dialog-button" type="button" aria-label="Закрыть">×</button>
+        </div>
+
+        <input id="task-id" type="hidden">
+        <label class="field field--wide">
+          <span>Название *</span>
+          <input id="task-title" name="title" type="text" maxlength="80" required placeholder="Например, закончить лабораторную">
+          <small class="field__error" id="title-error"></small>
+        </label>
+        <label class="field">
+          <span>Предмет *</span>
+          <input id="task-subject" name="subject" type="text" maxlength="50" required placeholder="Информатика">
+          <small class="field__error" id="subject-error"></small>
+        </label>
+        <label class="field">
+          <span>Срок *</span>
+          <input id="task-deadline" name="deadline" type="date" required>
+          <small class="field__error" id="deadline-error"></small>
+        </label>
+        <label class="field">
+          <span>Приоритет</span>
+          <select id="task-priority" name="priority">
+            <option value="medium">Средний</option>
+            <option value="high">Высокий</option>
+            <option value="low">Низкий</option>
+          </select>
+        </label>
+        <label class="field field--wide">
+          <span>Комментарий</span>
+          <textarea id="task-notes" name="notes" rows="3" maxlength="240" placeholder="Что именно нужно сделать"></textarea>
+        </label>
+
+        <div class="dialog__actions">
+          <button class="button button--quiet" id="cancel-dialog-button" type="button">Отмена</button>
+          <button class="button button--primary" type="submit">Сохранить</button>
+        </div>
+      </form>
+    </dialog>
+
     <script type="module" src="js/app.js"></script>
   </body>
 </html>
