@@ -224,7 +224,7 @@ def build():
     # 7. Результат
     slide = presentation.slides[6]
     set_title(slide, "Результат")
-    set_subtitle(slide, "Готовое адаптивное веб-приложение с локальным хранением данных")
+    set_subtitle(slide, "Готовое адаптивное веб-приложение · запись работы: demo/StudyFlow_demo.webm")
     add_picture_contain(slide, ROOT / "docs/images/studyflow-desktop.png", 0.55, 2.05, 7.2, 4.75)
     add_card(slide, 8.0, 2.2, 4.35, 1.25, "16 / 16", ["автоматических тестов пройдено"], accent=GREEN)
     add_card(slide, 8.0, 3.75, 4.35, 1.25, "390 px", ["проверена мобильная ширина"], accent=GREEN)
