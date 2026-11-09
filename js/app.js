@@ -134,6 +134,68 @@ function createTaskCard(task) {
   return card;
 }
 
+function clearFormErrors() {
+  ["title", "subject", "deadline"].forEach((field) => {
+    document.querySelector(`#${field}-error`).textContent = "";
+  });
+}
+
+function openTaskDialog(task = null) {
+  elements.form.reset();
+  clearFormErrors();
+  elements.taskId.value = task?.id ?? "";
+  elements.dialogTitle.textContent = task ? "Изменить задачу" : "Новая задача";
+  elements.title.value = task?.title ?? "";
+  elements.subject.value = task?.subject ?? "";
+  elements.deadline.value = task?.deadline ?? todayKey();
+  elements.priority.value = task?.priority ?? "medium";
+  elements.notes.value = task?.notes ?? "";
+  elements.taskDialog.showModal();
+  elements.title.focus();
+}
+
+function closeTaskDialog() {
+  elements.taskDialog.close();
+}
+
+function readForm() {
+  return {
+    title: elements.title.value,
+    subject: elements.subject.value,
+    deadline: elements.deadline.value,
+    priority: elements.priority.value,
+    notes: elements.notes.value
+  };
+}
+
+function showFormErrors(errors) {
+  clearFormErrors();
+  Object.entries(errors).forEach(([field, message]) => {
+    document.querySelector(`#${field}-error`).textContent = message;
+  });
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  const input = readForm();
+  const errors = validateTask(input);
+  if (Object.keys(errors).length) {
+    showFormErrors(errors);
+    return;
+  }
+
+  tasks.push(createTask(input));
+  closeTaskDialog();
+  saveAndRender();
+  showToast("Задача добавлена");
+}
+
+elements.form.addEventListener("submit", handleSubmit);
+elements.addButton.addEventListener("click", () => openTaskDialog());
+elements.emptyAddButton.addEventListener("click", () => openTaskDialog());
+elements.closeDialogButton.addEventListener("click", closeTaskDialog);
+elements.cancelDialogButton.addEventListener("click", closeTaskDialog);
+
 function render() {
   const stats = getStats(tasks);
   elements.totalCount.textContent = stats.total;
